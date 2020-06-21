@@ -1,6 +1,8 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class javaCalculator {
 
@@ -28,14 +30,17 @@ public class javaCalculator {
     private JButton buttonSeven;
     private JButton buttonZero;
     private JButton buttonNegative;
+    private JButton buttonPow;
 
     private void getOperator(String buttonText) {
         math_operator = buttonText.charAt(0);
         total1 += Double.parseDouble(textPanel.getText());
         textPanel.setText("");
+
     }
 
-    public javaCalculator() {
+
+    private javaCalculator() {
         buttonOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -151,7 +156,17 @@ public class javaCalculator {
                 String button_text = buttonMultiply.getText();
                 getOperator(button_text);
             }
+
         });
+        buttonPow.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               String button_text = buttonPow.getText();
+               getOperator(button_text);
+            }
+        });
+
+
         buttonEquals.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -167,6 +182,9 @@ public class javaCalculator {
                         break;
                     case '*':
                         total2 = total1 * Double.parseDouble(textPanel.getText());
+                        break;
+                    case '^':
+                        total2 = Math.pow(total1, Double.parseDouble(textPanel.getText()));
                         break;
                 }
                 textPanel.setText(Double.toString(total2));
