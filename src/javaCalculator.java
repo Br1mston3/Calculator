@@ -31,6 +31,7 @@ public class javaCalculator {
     private JButton buttonZero;
     private JButton buttonNegative;
     private JButton buttonPow;
+    private JButton buttonDelete;
 
     private void getOperator(String buttonText) {
         math_operator = buttonText.charAt(0);
@@ -161,8 +162,8 @@ public class javaCalculator {
         buttonPow.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               String button_text = buttonPow.getText();
-               getOperator(button_text);
+                String button_text = buttonPow.getText();
+                getOperator(button_text);
             }
         });
 
@@ -178,7 +179,9 @@ public class javaCalculator {
                         total2 = total1 - Double.parseDouble(textPanel.getText());
                         break;
                     case '/':
-                        total2 = total1 / Double.parseDouble(textPanel.getText());
+                        if (Double.parseDouble(textPanel.getText()) != 0)
+                            total2 = total1 / Double.parseDouble(textPanel.getText());
+                        else total2 = 0;
                         break;
                     case '*':
                         total2 = total1 * Double.parseDouble(textPanel.getText());
@@ -199,16 +202,22 @@ public class javaCalculator {
 
             }
         });
-
+        buttonDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String text = textPanel.getText();
+                textPanel.setText(text.substring(0, text.length() - 1));
+            }
+        });
 
         buttonNegative.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(textPanel.getText().equals("")){
+                if (textPanel.getText().equals("")) {
                     textPanel.setText("0");
-                }else{
-                Double x = -1 * Double.parseDouble(textPanel.getText());
-                textPanel.setText(Double.toString(x));
+                } else {
+                    double x = -1 * Double.parseDouble(textPanel.getText());
+                    textPanel.setText(Double.toString(x));
                 }
 
             }
